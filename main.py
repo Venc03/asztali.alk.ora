@@ -2,19 +2,43 @@
 
 
 def eredmeny(jLap: list[int], gLap: list[int]):
-    if osszegzes(jLap) > 21:
-        return "Játékos vesztett"
-    elif osszegzes(gLap) > 21:
-        return "Gép vesztett"
+    s = ""
+    jOssz = osszegzes(jLap)
+    gOssz = osszegzes(gLap)
+    jdb = lapDb(jLap)
+    gdb = lapDb(gLap)
 
+    if jOssz <= 21 and gOssz <= 21:
+        if jOssz < gOssz:
+            s = "Játékos vesztett"
+        elif gOssz < jOssz:
+            s = "Gép vesztett"
+        elif jOssz == gOssz:
+            if jdb < gdb:
+                s = "Játékos vesztett"
+            elif gdb < jdb:
+                s = "Gép vesztett"
+            else:
+                s = "A jatek dontetlen"
+    else:
+        if jOssz > 21:
+            s = "Játékos vesztett"
+        if gOssz > 21:
+            s = "Gép vesztett"
+        if jOssz > 21 and gOssz > 21:
+            s = "dontetlen"
+    return s
 
-def osszegzes(list: list[int]):
+def osszegzes(lista: list[int]):
     i = 0
     ossz = 0
-    while i < len(list):
-        ossz += list[i]
+    while i < len(lista):
+        ossz += lista[i]
         i += 1
     return ossz
+
+def lapDb(lista: list[int]):
+    return lista
 
 
 #teszt esetek
@@ -85,8 +109,9 @@ def gep_vesztett_teszt_3():
 def dontetlen_teszt():
     jLap = [10, 5, 7]
     gLap = [6, 7, 9]
-
-    if osszegzes(jLap) == osszegzes(gLap):
+    kap = eredmeny(jLap, gLap)
+    vart = "dontetlen"
+    if kap == vart:
         print("A teszt sikeres")
     else:
         print("A teszt megbukott")
@@ -94,8 +119,9 @@ def dontetlen_teszt():
 def dontetlen_teszt_2():
     jLap = [10, 7, 6]
     gLap = [11, 5, 10]
-
-    if osszegzes(jLap) == osszegzes(gLap):
+    kap = eredmeny(jLap, gLap)
+    vart = "dontetlen"
+    if kap == vart:
         print("A teszt sikeres")
     else:
         print("A teszt megbukott")
@@ -109,6 +135,5 @@ def tesztek():
     gep_vesztett_teszt_3()
     dontetlen_teszt()
     dontetlen_teszt_2()
-
 
 tesztek()
