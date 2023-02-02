@@ -93,7 +93,7 @@ def dontetlen_teszt():
 
 def dontetlen_teszt_2():
     jLap = [10, 7, 6]
-    gLap = [11, 11]
+    gLap = [11, 5, 10]
 
     if osszegzes(jLap) == osszegzes(gLap):
         print("A teszt sikeres")
